@@ -1,0 +1,14 @@
+<h1>Ajouter une note</h1>
+<p ng-show="loading">Chargement</p>
+<p ng-show="success">Nouvelle note ajoutée</p>
+<form ng-submit="add()">
+	<fieldset>
+		<div class="f-group">
+			<label>Ma nouvelle note</label>
+			<textarea cols="10" rows="10" ng-model="noteText"></textarea>
+		</div>
+		<div class="f-group">
+			<input type="submit" value="Enregistrer" />
+		</div>
+	</fieldset>
+</form>

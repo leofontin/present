@@ -1,0 +1,17 @@
+<div ng-repeat="n in presents">
+	<div class="Front-content">
+		<div class="Front-largeContent {{n.type}}">
+			{{n.content}}
+		</div>
+		<div class="Front-footer">
+			<div class="Front-map" id="Front-map{{n.id}}"></div>
+			<div class="left">
+				<i class="icon-map-marker"></i>
+				<span class="Front-city">{{n.city}}</span>
+			</div>
+			<div class="right">
+				<span>{{ convertdate(n.date) }}</span>
+			</div>
+		</div>
+	</div>
+</div>

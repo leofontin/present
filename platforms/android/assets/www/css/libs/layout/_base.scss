@@ -1,0 +1,16 @@
+html {
+	min-height: 100%;
+}
+
+body {
+	min-height: 100%;
+	
+	background: #eaeaea;
+	
+	@extend %font;
+}
+
+a {
+	text-decoration: none;
+	color: $gray;
+}

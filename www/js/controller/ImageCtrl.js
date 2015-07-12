@@ -1,63 +1,28 @@
 var app = angular.module('image',[]);
 
-app.controller('ImageCtrl', function($scope,CameraService){
+app.controller('ImageCtrl', function($scope,$cordovaCamer){
 	
-	localStorage.removeItem('images');
-	
-	// récupération des images sauvegardées
-	$scope.imgs = [];
-	var imgs = localStorage.getItem('images');
-	if(imgs != '' && imgs != undefined){
-		$scope.imgs = angular.fromJson(imgs);
-	}
-	
-	
-	
-	/*
-	* SET ALERT
-	* gère l'affichage de l'alert
-	*/
-	$scope.setAlert = function(){
-		$scope.alert = true;
-		if($scope.imgs.length > 0){
-			$scope.alert = false;
-		}
-	}
-	
-
-	
-	/*
-	* SNAP
-	* Prendre une nouvelle photo
-	*/
-	
-	$scope.snap = function(){
+	$scope.getPicture = function(){
 		
 		var options = {
-			destinationType : Camera.DestinationType.FILE_URI,
-			sourceType 		: Camera.PictureSourceType.PHOTOLIBRARY
-		};
-
-		CameraService.getPicture(options).then(function(url){
-			
-			$scope.imgs.push({
-				id	: (new Date()).getTime(),
-				url : url
-			});
-			
-			// enregistrement
-			localStorage.setItem('images',angular.toJson($scope.imgs));
-			
-		}, function(err){
-			console.log(err);
-		});
-		
-		
+	      quality: 50,
+	      destinationType: Camera.DestinationType.DATA_URL,
+	      sourceType: Camera.PictureSourceType.CAMERA,
+	      allowEdit: true,
+	      encodingType: Camera.EncodingType.JPEG,
+	      targetWidth: 100,
+	      targetHeight: 100,
+	      popoverOptions: CameraPopoverOptions,
+	      saveToPhotoAlbum: false
+	    };
+	
+	    $cordovaCamera.getPicture(options).then(function(imageData) {
+	      var image = document.getElementById('myImage');
+	      image.src = "data:image/jpeg;base64," + imageData;
+	    }, function(err) {
+	      // error
+	    });
+	
 	}
-	
-	
-	// Gère l'alert
-	$scope.setAlert();
-	
 	
 });

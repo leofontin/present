@@ -19,12 +19,17 @@ app.controller('NoteCtrl', function($scope,$cordovaGeolocation,$http){
 		
 		$scope.loading = true;
 		
+		console.log('send');
+		
 		// récupération de la localisation
 		$cordovaGeolocation
 			.getCurrentPosition()
 			.then(function (position) {
 				
-				console.log(position);
+				$scope.loading = false;
+				$scope.success = true;
+				
+				console.log('geocode ok');
 				
 				var lat = position.coords.latitude;
 				var lng = position.coords.longitude;
@@ -34,11 +39,17 @@ app.controller('NoteCtrl', function($scope,$cordovaGeolocation,$http){
 				var latlng = new google.maps.LatLng(lat, lng);
 				geocoder.geocode( { 'location': latlng}, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
+					
+						console.log('location ok');
+						
 						var city = results[0]['address_components'][2]['long_name'];
 						
-						// ajout de la note dans le tableau des notes
+						// calcul de l'id
+						var id = $scope.presents.length + 1;
+						
+						// ajout de la note dans le tableau des notes						
 						$scope.presents.push({
-							id 		: $scope.presents.length + 1,
+							id 		: id,
 							type	: 'note',
 							content	: $scope.noteText,
 							date	: (new Date).getTime(),
@@ -49,14 +60,23 @@ app.controller('NoteCtrl', function($scope,$cordovaGeolocation,$http){
 						
 						// enregistre le tableau
 						localStorage.setItem('presents',angular.toJson($scope.presents));
+						$scope.noteText = '';
+						console.log('insert ok');
 						
+						
+						
+					}
+					
+					else{ 
+						$scope.loading = false;
+						alert('Récupération de votre ville impossible');
 					}
 				});
 			
-			$scope.loading = false;
-			$scope.success = true;
-			
-			}, function(err) {});
+			}, function(err) {
+				$scope.loading = false;
+				alert('Récupération de votre position impossible');
+			});
 	};
 		
 	// Initialsiation des variables

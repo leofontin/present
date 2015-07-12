@@ -16,6 +16,12 @@ app.config(function($routeProvider){
 			templateUrl : 'page/note.html'
 		})
 		
+		// ajout d'une image
+		.when('/image-add', {
+			controller  : 'ImageCtrl',
+			templateUrl : 'page/image.html'
+		})
+		
 		// redirection automatique
 		.otherwise({
 	      redirectTo : '/'

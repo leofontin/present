@@ -8,31 +8,8 @@ app.controller('FrontCtrl', function($scope,$location){
 	var presents = localStorage.getItem('presents');
 	if(presents != '' && presents != undefined){
 		$scope.presents = angular.fromJson(presents);
+		$scope.presents.reverse();
 	}
-	
-	
-
-	// affichage des google map
-	$(window).load(function(){
-		for(var i=0; i<$scope.presents.length; i++){			
-			
-			var latlng = new google.maps.LatLng($scope.presents[i]['lat'],$scope.presents[i]['lng']);
-			
-			var mapOptions = {
-	          center: latlng,
-	          zoom: 8
-	        };
-	        
-	        var id = 'Front-map'+$scope.presents[i]['id'];
-	        var map = new google.maps.Map(document.getElementById(id),mapOptions);
-	        
-	        var marker = new google.maps.Marker({
-		      position: latlng,
-		      map: map
-		  });
-	
-		}
-	});
 	
 	
 	
@@ -46,6 +23,41 @@ app.controller('FrontCtrl', function($scope,$location){
 		
 		date =  date.getDate() +'/'+ month;	
 		return date;
+	}
+	
+	
+	
+	
+	// affichage de la carte
+	$scope.showMap = function(id){
+		
+		// récupération des informations de la ligne concernée
+		for(var i=0; i<$scope.presents.length; i++){
+			if(id == $scope.presents[i]['id']){
+				var data = $scope.presents[i];
+			}
+		}
+		
+		
+		// créatio nde la carte	
+		var latlng = new google.maps.LatLng(data['lat'],data['lng']);
+			
+		var mapOptions = {
+          center: latlng,
+          zoom: 8
+        };
+        
+        var idMap = 'Front-map'+data['id'];
+        var map = new google.maps.Map(document.getElementById(idMap),mapOptions);
+        
+        var marker = new google.maps.Marker({
+	      position: latlng,
+	      map: map
+	    });
+	    
+	    //affichage de la carte
+	    $('#'+idMap).addClass('show');
+		
 	}
 	
 	

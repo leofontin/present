@@ -34,6 +34,8 @@
 	
 	
 	.Front-map {
+		display: none;
+		
 		width: 100%;
 		height: 200px;
 		
@@ -52,4 +54,6 @@
 		text-align: right;
 		padding: 10px;
 	}
+	
+	.show { display: block; }
 }

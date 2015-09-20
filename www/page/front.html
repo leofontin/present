@@ -1,7 +1,8 @@
 <div ng-repeat="n in presents">
 	<div class="Front-content">
 		<div class="Front-largeContent {{n.type}}">
-			{{n.content}}
+			<div class="content note-content">{{n.content}}</div>
+			<div class="content image-content" ng-click="imageShow(n.id)" style="background-image:url({{n.content}});"></div>
 		</div>
 		<div class="Front-footer">
 			<div class="Front-map" id="Front-map{{n.id}}"></div>
@@ -17,3 +18,5 @@
 		</div>
 	</div>
 </div>
+
+<div id="Front-imageContainer" ng-show="showImageFullScreen" style="background-image:url({{ urlImageFullScreen }});"></div>

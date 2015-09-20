@@ -1,4 +1,7 @@
 <h1>Ajouter une note</h1>
+<p ng-show="loading">Chargement</p>
+<p ng-show="success">Nouvelle note ajoutée</p>
+<p>{{ console }}</p>
 <ul>
 	<li><a ng-click="getPicture(galery)">Choisir une image</a></li>
 	<li><a ng-click="getPicture(camera)">Prendre une photo</a></li>

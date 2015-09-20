@@ -44,12 +44,9 @@ app.controller('NoteCtrl', function($scope,$cordovaGeolocation,$http){
 						
 						var city = results[0]['address_components'][2]['long_name'];
 						
-						// calcul de l'id
-						var id = $scope.presents.length + 1;
-						
 						// ajout de la note dans le tableau des notes						
 						$scope.presents.push({
-							id 		: id,
+							id 		: $scope.presents.length + 1,
 							type	: 'note',
 							content	: $scope.noteText,
 							date	: (new Date).getTime(),
@@ -60,10 +57,8 @@ app.controller('NoteCtrl', function($scope,$cordovaGeolocation,$http){
 						
 						// enregistre le tableau
 						localStorage.setItem('presents',angular.toJson($scope.presents));
-						$scope.noteText = '';
+
 						console.log('insert ok');
-						
-						
 						
 					}
 					

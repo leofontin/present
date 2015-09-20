@@ -2,6 +2,8 @@ var app = angular.module('front',[]);
 
 app.controller('FrontCtrl', function($scope,$location){
 	
+	$scope.showImageFullScreen = false;
+	
 	
 	// récupératio nde toutes les notes
 	$scope.presents = [];
@@ -57,6 +59,24 @@ app.controller('FrontCtrl', function($scope,$location){
 	    
 	    //affichage de la carte
 	    $('#'+idMap).addClass('show');
+		
+	}
+	
+	
+	// affichage de l'image en plein écran
+	$scope.imageShow = function(id){
+		
+		// récupération des informations de la ligne concernée
+		for(var i=0; i<$scope.presents.length; i++){
+			if(id == $scope.presents[i]['id']){
+				var data = $scope.presents[i];
+			}
+		}
+		
+		$scope.showImageFullScreen = true;
+		$scope.urlImageFullScreen = data['content'];
+		
+		$('body').addClass('imageFullScreen');
 		
 	}
 	
